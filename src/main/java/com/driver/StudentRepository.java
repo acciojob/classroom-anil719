@@ -57,38 +57,29 @@ public class StudentRepository {
     }
 
     public void deleteTeacherByName(String teacher) {
-//        List<String> studentList = new ArrayList<>();
-//
-//        //find all movie and save in list
-//        if(teacherStudentPairMap.containsKey(teacher)){
-//            studentList = teacherStudentPairMap.get(teacher);
-//        }
-//
-//        //find all student and remove
-//        for(String student : studentList){
-//            studentMap.remove(student);
-//        }
+        List<String> studentList = new ArrayList<>();
+        if(teacherStudentPairMap.containsKey(teacher)){
+            studentList = teacherStudentPairMap.get(teacher);
+        }
+        for(String student : studentList){
+            studentMap.remove(student);
+        }
+        if(teacherMap.containsKey(teacher))
+            teacherMap.remove(teacher);
 
-        //deleting pair
-        if(teacherStudentPairMap.containsKey(teacher))teacherStudentPairMap.remove(teacher);
-
-        //delete teacher
-        if(teacherMap.containsKey(teacher))teacherMap.remove(teacher);
+        if(teacherStudentPairMap.containsKey(teacher))
+            teacherStudentPairMap.remove(teacher);
     }
 
     public void deleteAllTeacher() {
-       // HashSet<String> studentSet = new HashSet<>();
-
+        HashSet<String> studentSet = new HashSet<>();
+        for(String teacher : teacherStudentPairMap.keySet()){
+            studentSet.addAll(teacherStudentPairMap.get(teacher));
+        }
         teacherMap = new HashMap<>();
-
-//        for(String teacher : teacherStudentPairMap.keySet()){
-//            studentSet.addAll(teacherStudentPairMap.get(teacher));
-//        }
-//
-//        for(String student : studentSet){
-//            studentMap.remove(student);
-//        }
-//
-//        teacherStudentPairMap = new HashMap<>();
+        for(String student : studentSet){
+            studentMap.remove(student);
+        }
+        teacherStudentPairMap = new HashMap<>();
     }
 }
